@@ -14,11 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
-private Spinner spin;
-private EditText chocolate,vainilla,fresa;
-private Button btn;
+
+    Fragment Afr= new Fragment_Arma();
+    private Spinner spin;
+    private EditText chocolate,vainilla,fresa;
+    private Button btn;
+
     String cadena1;
     String cadena2;
     String cadena3;
@@ -38,6 +43,22 @@ private Button btn;
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adaptador);
 
+        /*btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cadena1=chocolate.getText().toString();
+                cadena2=vainilla.getText().toString();
+                cadena3=fresa.getText().toString();
+                Intent intent = new Intent(MainActivity.this, Activity2.class);
+
+                intent.putExtra("chocolate",cadena1);
+                intent.putExtra("vainilla",cadena2);
+                intent.putExtra("fresa",cadena3);
+                intent.putExtra("eleccion",cadena4);
+                startActivity(intent);
+            }
+        });*/
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +72,7 @@ private Button btn;
                 intent.putExtra("fresa",cadena3);
                 intent.putExtra("eleccion",cadena4);
                 startActivity(intent);
+                cambiarFragment();
             }
         });
 
@@ -73,4 +95,10 @@ private Button btn;
         });
     }
 
+    private void cambiarFragment(){
+        Fragment ponerFragment = Afr;
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, ponerFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+    }
 }
