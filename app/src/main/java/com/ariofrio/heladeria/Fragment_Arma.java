@@ -50,6 +50,17 @@ public class Fragment_Arma extends Fragment {
         return fragment;
     }
 
+    public static Fragment_Arma newInstance(String chocolate, String vainilla, String fresa, String eleccion){
+        Fragment_Arma fragment=new Fragment_Arma();
+        Bundle bundle=new Bundle();
+        bundle.putString("chocolate",chocolate);
+        bundle.putString("vainilla",vainilla);
+        bundle.putString("fresa",fresa);
+        bundle.putString("eleccion",eleccion);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,50 +88,64 @@ public class Fragment_Arma extends Fragment {
         texto4=view.findViewById(R.id.tv6);
         textoSpin=view.findViewById(R.id.tvSpin);
 
-        Intent intent = getActivity().getIntent();
-        String mensaje1 = intent.getStringExtra("chocolate");
-        String mensaje2 = intent.getStringExtra("vainilla");
-        String mensaje3 = intent.getStringExtra("fresa");
-        String mensaje4 = intent.getStringExtra("eleccion");
+        Bundle args=getArguments();
+        if(args!=null) {
+            String mensaje1=args.getString("chocolate","");
+            String mensaje2=args.getString("vainilla","");
+            String mensaje3=args.getString("fresa","");
+            String mensaje4=args.getString("eleccion","");
 
-        a=Integer.parseInt(mensaje2);
+            a=Integer.parseInt(mensaje2);
+            b=Integer.parseInt(mensaje1);
+            c=Integer.parseInt(mensaje3);
+            String cadena1 = vainilla(a);
+            String cadena2 = chocolate(b);
+            String cadena3 = fresa(c);
+            String cadena4 = eleccion(mensaje4);
+            texto2.setText(cadena1);
+            texto2.setTextColor(Color.YELLOW);
+
+            texto3.setText(cadena2);
+            texto3.setTextColor(Color.BLACK);
+
+            texto4.setText(cadena3);
+            texto4.setTextColor(Color.RED);
+            textoSpin.setText(cadena4);
+
+            textoSpin.setText(cadena4);
+            texto.setText("De chocolate han pedido: " + mensaje1 +
+                            " de vainilla han elegido: " + mensaje2 +
+                            " y de fresa: " + mensaje3 + " Y has elegido " + mensaje4);
+        }
+    }
+    private String eleccion(String palabra){
+        String retorno;
+        if(palabra.equalsIgnoreCase("cucurucho")||palabra.equalsIgnoreCase("cucu")){
+            return retorno="V";
+        }else{
+            return retorno="U";
+        }
+
+    }
+    private String vainilla(int num){
         String cadenaO ="";
-        for(int i=0;i<a;i++){
+        for(int i=0;i<num;i++){
             cadenaO+="O";
         }
-        String cadena1 = cadenaO;
-
-        b=Integer.parseInt(mensaje1);
+        return cadenaO;
+    }
+    private String chocolate(int num){
         String cadenaC ="";
-        for(int  i=0;i<b;i++){
+        for(int  i=0;i<num;i++){
             cadenaC+="O";
         }
-        String cadena2 = cadenaC;
-
-        c=Integer.parseInt(mensaje3);
-        String cadenaF ="";
-        for(int  i=0;i<c;i++){
-            cadenaF+="O";
+        return cadenaC;
+    }
+    private String fresa(int num){
+        String cadenaC ="";
+        for(int  i=0;i<num;i++){
+            cadenaC+="O";
         }
-        String cadena3 = cadenaF;
-
-        String cadena4;
-        if(mensaje4.equalsIgnoreCase("cucurucho")||mensaje4.equalsIgnoreCase("cucu")){
-            cadena4 ="V";
-        }else{
-            cadena4 ="U";
-        }
-
-        texto2.setText(cadena1);
-        texto2.setTextColor(Color.YELLOW);
-
-        texto3.setText(cadena2);
-        texto3.setTextColor(Color.BLACK);
-
-        texto4.setText(cadena3);
-        texto4.setTextColor(Color.RED);
-
-        textoSpin.setText(cadena4);
-        texto.setText("De chocolate han pedido: "+mensaje1+" de vainilla han elegido: "+mensaje2+" y de fresa: "+mensaje3+" Y has elegido "+mensaje4);
+        return cadenaC;
     }
 }

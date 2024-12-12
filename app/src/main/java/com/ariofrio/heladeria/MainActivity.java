@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
-    Fragment Afr= new Fragment_Arma();
+    Fragment frag= new Fragment_Arma();
     private Spinner spin;
     private EditText chocolate,vainilla,fresa;
     private Button btn;
@@ -43,35 +43,12 @@ public class MainActivity extends AppCompatActivity {
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adaptador);
 
-        /*btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cadena1=chocolate.getText().toString();
-                cadena2=vainilla.getText().toString();
-                cadena3=fresa.getText().toString();
-                Intent intent = new Intent(MainActivity.this, Activity2.class);
-
-                intent.putExtra("chocolate",cadena1);
-                intent.putExtra("vainilla",cadena2);
-                intent.putExtra("fresa",cadena3);
-                intent.putExtra("eleccion",cadena4);
-                startActivity(intent);
-            }
-        });*/
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cadena1=chocolate.getText().toString();
                 cadena2=vainilla.getText().toString();
                 cadena3=fresa.getText().toString();
-                Intent intent = new Intent(MainActivity.this, Activity2.class);
-
-                intent.putExtra("chocolate",cadena1);
-                intent.putExtra("vainilla",cadena2);
-                intent.putExtra("fresa",cadena3);
-                intent.putExtra("eleccion",cadena4);
-                startActivity(intent);
                 cambiarFragment();
             }
         });
@@ -96,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cambiarFragment(){
-        Fragment ponerFragment = Afr;
+        Fragment_Arma ponerFragment = Fragment_Arma.newInstance(cadena1,cadena2,cadena3,cadena4);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, ponerFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
